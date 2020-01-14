@@ -1,21 +1,28 @@
+# Tilde Enhanced
+
+Based on [Cade Scroggins](https://github.com/cadejscroggins)'s [Tilde](https://github.com/cadejscroggins/tilde).
+
 ## Screenshots 
 
 ![Screenshot](assets/screenshot.png)
 
-# Tilde Enhanced
-
-A slightly modified version of [Cade Scroggins](https://github.com/cadejscroggins)'s homepage [Tilde](https://github.com/cadejscroggins/tilde).
-Most of the features are carried over from the original source.
 
 ## Added Features
+Most of the features are carried over from the original source.
+Few of the added features are:
 
-- Clicking on the clock will bring up pre-defined sites.
+- Added a "Quick Launch" functionality, which launches all the sites with `quickLaunch` 
+property set to true upon hitting `!` key.
+- Clicking on the clock brings up pre-defined sites.
 - Available sites show their icons instead of their corresponding keys.
-- Other small changes on grids and boxes.
+- Added the option to invert colour theme. You can either edit config or use `invert!` command.
+- Other small changes on grids.
 
 
 ## Usage
 
+To use Tilde as your homepage, simply set your browser's home URL to
+Tilde's index file.
 To go to a site, enter the first letter of the site then hit enter.
 To view the available sites, press `?` or click on the clock.
 If your input doesn't match any of the commands,
@@ -26,7 +33,9 @@ a generic DuckDuckGo search will be triggered. For example:
 - Entering `cats` would search [Cats](https://duckduckgo.com/?q=cats).
 
 Note that by default, queries are searched on DuckDuckGo but this can be
-configured easily by updating two lines.
+configured easily by updating two lines on. Check [Configuration](#configuration) for details.
+
+You might have to allow pop-ups for your homepage to use quick launch feature.
 
 This version is not suitable for use on mobile as clicking on the clock will
 only bring up pre-defined sites.
@@ -73,9 +82,8 @@ This allows you to invoke Tilde with your native browser search bar.
 
 ## Configuration
 
-The above is just the beginning. Open up the [index.html](index.html) file and
-read through the `CONFIG`!
+Open up the [script.js](assets/script.js) file and read through the `CONFIG`!
 
 ## License
 
-Feel free to [use this and modify it however you like](https://github.com/cadejscroggins/tilde/blob/master/LICENSE).
+Feel free to [use this and modify it however you like](https://github.com/Ozencb/tilde-enhanced/blob/master/LICENSE).
