@@ -187,7 +187,7 @@ let CONFIG = {
   /**
    * Show keys instead of icons
    */
-  showKeys: true,
+  showKeys: false,
 
   /**
    * The delimiter between a command key and your search query. For example,
