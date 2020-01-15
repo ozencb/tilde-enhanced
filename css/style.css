@@ -4,18 +4,10 @@
   --foreground: #F1F1F1;
 
   /* fonts */
-  --font-family: 'Open Sans', sans-serif;
+  --font-family: Verdana, Geneva, sans-serif;
   --base-font-size: 18px;
   --font-weight-normal: 500;
   --font-weight-bold: 900;
-}
-
-@font-face {
-  font-family: 'Open Sans', sans-serif;
-  font-style: normal;
-  font-weight: var(--font-weight-normal);
-  src: local('Open Sans'), local('Open Sans'),
-    url('../assets/fonts/OpenSans-Regular.ttf') format('ttf');
 }
 
 * {
@@ -36,7 +28,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  transition: background 0.2s;
+  transition: background 0.4s;
   background: var(--background);
   color: var(--foreground);
 }
@@ -207,17 +199,13 @@ body.suggestions .search-suggestions {
 }
 
 .command-key {
-  display: block;
-  float: left;
+  border-radius: 50%;
   width: 2rem;
   height: 2rem;
   margin-right: 1rem;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--background);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 800;
-  line-height: 2rem;
+  line-height: 1.5rem;
   text-align: center;
 }
 

@@ -408,9 +408,10 @@ class Help {
               <a href="${url}" target="${this._newTab ? '_blank' : '_self'}">
                     <style>
                       .command-key-${i} {
-                        color: ${bgcolor}; 
-                        background-color:${fgcolor};
-
+                        color: ${fgcolor}; 
+                        background-color:${bgcolor};
+                        border: 4px solid ${fgcolor}; 
+                        background-color: ${bgcolor};
                       }   
                     </style>
                 <span class="command-key command-key-${i}" style="">${key}</span>
