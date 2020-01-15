@@ -1,14 +1,4 @@
-let invertColorCookie;
-
-if (localStorage.getItem('invertColorCookie') === null){
-  invertColorCookie = false;
-}
-
-else {
-  invertColorCookie = JSON.parse(localStorage.getItem('invertColorCookie'));
-}
-
-const CONFIG = {
+let CONFIG = {
   /**
    * The category, name, key, url, search path, color, icon, and quicklaunch properties for your commands.
    * Icons must be added to "icons" folder and their values/names must be updated.
@@ -106,7 +96,7 @@ const CONFIG = {
     {
       category: 'Fun',
       name: 'Twitch',
-      key: 't',
+      key: 'tw',
       url: 'https://www.twitch.tv',
       search: '/directory/game/{}',
       color: 'linear-gradient(135deg, #6441a5, #4b367c)',
@@ -126,9 +116,10 @@ const CONFIG = {
     {
       category: 'Other',
       name: 'Twitter',
-      key: 'o',
+      key: 't',
       url: 'https://twitter.com',
-      color: 'linear-gradient(135deg, #C0A886, #E2DBC8)',
+      search: '/search?q={}&src=typed_query',
+      color: 'linear-gradient(135deg, #1DA1F2, #19608F)',
       icon: 'twitter',
       quickLaunch: true,
     },
@@ -191,7 +182,12 @@ const CONFIG = {
   /**
    * Invert color theme
    */
-  invertedColors: invertColorCookie,
+  invertedColors: false,
+
+  /**
+   * Show keys instead of icons
+   */
+  showKeys: true,
 
   /**
    * The delimiter between a command key and your search query. For example,
@@ -216,6 +212,15 @@ const CONFIG = {
   twentyFourHourClock: true,
 };
 
+// Get invertedColors preference from cookies
+CONFIG.invertedColors = localStorage.getItem('invertColorCookie') 
+                      ? JSON.parse(localStorage.getItem('invertColorCookie'))
+                      : CONFIG.invertedColors;
+
+// Get showKeys preference from cookies
+CONFIG.showKeys = localStorage.getItem('showKeysCookie') 
+                ? JSON.parse(localStorage.getItem('showKeysCookie'))
+                : CONFIG.showKeys;
 
 const $ = {
   bodyClassAdd: c => $.el('body').classList.add(c),
@@ -354,7 +359,7 @@ class Help {
     }
   }
 
-  _buildAndAppendLists() {
+  _buildAndAppendLists(mode) {
     const lists = document.createElement('ul');
     lists.classList.add('categories');
 
@@ -363,7 +368,7 @@ class Help {
         'beforeend',
         `<li class="category">
           <h2 class="category-name">${category}</h2>
-          <ul>${this._buildListCommands(category)}</ul>
+          <ul>${this._buildListCommands(category, mode)}</ul>
         </li>`
       );
     });
@@ -371,16 +376,22 @@ class Help {
     this._el.appendChild(lists);
   }
 
-  _buildListCommands(currentCategory) {
-    this._invertValue = this._invertColors ? 1: 0;
+  _buildListCommands(currentCategory, mode) {
+    let invertValue = this._invertColors ? 1: 0;
 
-    return this._commands
+    const bgcolor = invertValue ? getComputedStyle(document.documentElement).getPropertyValue('--foreground') 
+                                : getComputedStyle(document.documentElement).getPropertyValue('--background');
+
+    const fgcolor = invertValue ? getComputedStyle(document.documentElement).getPropertyValue('--background') 
+                                : getComputedStyle(document.documentElement).getPropertyValue('--foreground');
+
+    const commandListWithIcons =  this._commands
       .map(({ category, name, key, url, icon }) => {
         if (category === currentCategory) {
           return `
             <li class="command">
               <a href="${url}" target="${this._newTab ? '_blank' : '_self'}">
-                <span class="command-key"><img src='assets/icons/${icon}.png' height = 36px center style="filter: invert(${this._invertValue});"></span>
+                <span class="command-key"><img src='assets/icons/${icon}.png' height = 36px center style="filter: invert(${invertValue});"></span>
                 <span class="command-name">${name}</span>
               </a>
             </li>
@@ -388,6 +399,30 @@ class Help {
         }
       })
       .join('');
+
+    const commandListWithKeys = this._commands
+      .map(({ category, name, key, url }, i) => {
+        if (category === currentCategory) {
+          return `
+            <li class="command">
+              <a href="${url}" target="${this._newTab ? '_blank' : '_self'}">
+                    <style>
+                      .command-key-${i} {
+                        color: ${bgcolor}; 
+                        background-color:${fgcolor};
+
+                      }   
+                    </style>
+                <span class="command-key command-key-${i}" style="">${key}</span>
+                <span class="command-name command-name-${i}">${name}</span>
+              </a>
+            </li>
+          `;
+        }
+      })
+      .join('');
+
+    return CONFIG.showKeys ? commandListWithKeys : commandListWithIcons;
   }
 
   _getCategories() {
@@ -824,13 +859,21 @@ class Form {
       const bgcolor = getComputedStyle(document.documentElement).getPropertyValue('--background');
       const fgcolor = getComputedStyle(document.documentElement).getPropertyValue('--foreground');
       document.documentElement.style.setProperty('--background', fgcolor);
-      document.documentElement.style.setProperty('--foreground', bgcolor);    }
+      document.documentElement.style.setProperty('--foreground', bgcolor);    
+    }
   }
 
   _invertConfig() {
-    invertColorCookie = !invertColorCookie;
-    localStorage.clear();
-    localStorage.setItem('invertColorCookie', JSON.stringify(invertColorCookie));
+    let isInverted = !CONFIG.invertedColors;
+    localStorage.removeItem('invertColorCookie');
+    localStorage.setItem('invertColorCookie', JSON.stringify(isInverted));
+    location.reload();
+  }
+
+  _showKeysConfig() {
+    let isShowKeys = !CONFIG.showKeys;
+    localStorage.removeItem('showKeysCookie');
+    localStorage.setItem('showKeysCookie', JSON.stringify(isShowKeys));
     location.reload();
   }
 
@@ -844,6 +887,7 @@ class Form {
     const isHelp = newQuery === '?';
     const isLaunch = newQuery === '!';
     const isInvert = newQuery === 'invert!';
+    const isShowKeys = newQuery === 'keys!';
     const { isKey } = this._parseQuery(newQuery);
     this._inputElVal = newQuery;
     this._suggester.suggest(newQuery);
@@ -852,6 +896,7 @@ class Form {
     if (isHelp) this._toggleHelp();
     if (isLaunch) this._quickLaunch();
     if (isInvert) this._invertConfig();
+    if (isShowKeys) this._showKeysConfig();
     if (this._instantRedirect && isKey) this._submitWithValue(newQuery);
   }
 
@@ -948,6 +993,7 @@ const help = new Help({
   newTab: CONFIG.newTab,
   suggester,
   invertedColors: CONFIG.invertedColors,
+  showKeys: CONFIG.showKeys
 });
 
 const form = new Form({
@@ -959,6 +1005,7 @@ const form = new Form({
   toggleHelp: help.toggle,
   quickLaunch: help.launch,
   invertedColors: CONFIG.invertedColors,
+  showKeys: CONFIG.showKeys
 });
 
 new Clock({

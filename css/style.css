@@ -1,7 +1,7 @@
 :root {
   /* colors */
-  --background: #000000;
-  --foreground: #FFFFFF;
+  --background: #0E0E0E;
+  --foreground: #F1F1F1;
 
   /* fonts */
   --font-family: 'Open Sans', sans-serif;
@@ -215,7 +215,8 @@ body.suggestions .search-suggestions {
   border-radius: 50%;
   background: transparent;
   color: var(--background);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
+  font-weight: 800;
   line-height: 2rem;
   text-align: center;
 }

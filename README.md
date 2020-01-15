@@ -11,13 +11,9 @@ Based on [Cade Scroggins](https://github.com/cadejscroggins)'s [Tilde](https://g
 Most of the features are carried over from the original source.
 Few of the added features are:
 
-- Added a "Quick Launch" functionality, which launches all the sites with `quickLaunch` 
-property set to true upon hitting `!` key.
-- Clicking on the clock brings up pre-defined sites.
-- Available sites show their icons instead of their corresponding keys.
-- Added the option to invert colour theme. You can either edit config or use `invert!` command.
-- Other small changes on grids.
-
+- Added a "Quick Launch" functionality, which launches all the sites with `quickLaunch` property set to `true` upon hitting `!` key.
+- Color theme can now be inverted easily by either editing config or using `invert!` command.
+- Added an option to show launch keys instead of icons again. Either edit config or type `keys!`. 
 
 ## Usage
 
@@ -82,7 +78,7 @@ This allows you to invoke Tilde with your native browser search bar.
 
 ## Configuration
 
-Open up the [script.js](assets/script.js) file and read through the `CONFIG`!
+Open up the [script.js](js/script.js) file and read through the `CONFIG`!
 
 ## License
 
