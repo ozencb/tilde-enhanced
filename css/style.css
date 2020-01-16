@@ -102,8 +102,8 @@ a:focus {
 }
 
 .search-form {
-  background: var(--foreground);
-  color: var(--background);
+  background: var(--background);
+  color: var(--foreground);
   z-index: 2;
 }
 
@@ -141,8 +141,8 @@ body.suggestions .search-suggestions {
 }
 
 .search-suggestion.highlight {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .search-suggestion b {
