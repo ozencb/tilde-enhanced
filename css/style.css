@@ -243,6 +243,10 @@ body.form .search-form {
 }
 
 @media (min-width: 500px) {
+  .help {
+    display: flex;
+    padding: 0;
+  }
   .clock {
     font-size: 6rem;
   }
@@ -256,12 +260,10 @@ body.form .search-form {
   }
 
   .categories {
-    display: flex;
-    grid-template-columns: 250px 175px;
+    display: grid;
+    grid-template-columns: repeat(1, 50%) 50%;
     justify-content: space-around;
   }
-
-  
 }
 
 @media (min-width: 1000px) {
@@ -283,6 +285,7 @@ body.form .search-form {
   }
 
   .categories {
+    display: flex;
     grid-template-columns: repeat(2, 300px) 175px;
   }
 }
