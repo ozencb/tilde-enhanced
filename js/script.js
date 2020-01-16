@@ -11,8 +11,7 @@ let CONFIG = {
       name: 'Duckduckgo',
       key: '*',
       url: 'https://duckduckgo.com',
-      search: '/?q={}',
-      color: '#DE5833',
+      search: '/?q={}'
     },
     {
       category: 'General',
