@@ -358,7 +358,7 @@ class Help {
     }
   }
 
-  _buildAndAppendLists(mode) {
+  _buildAndAppendLists() {
     const lists = document.createElement('ul');
     lists.classList.add('categories');
 
@@ -367,7 +367,7 @@ class Help {
         'beforeend',
         `<li class="category">
           <h2 class="category-name">${category}</h2>
-          <ul>${this._buildListCommands(category, mode)}</ul>
+          <ul>${this._buildListCommands(category)}</ul>
         </li>`
       );
     });
@@ -375,7 +375,7 @@ class Help {
     this._el.appendChild(lists);
   }
 
-  _buildListCommands(currentCategory, mode) {
+  _buildListCommands(currentCategory) {
     let invertValue = this._invertColors ? 1: 0;
 
     const bgcolor = invertValue ? getComputedStyle(document.documentElement).getPropertyValue('--foreground') 
