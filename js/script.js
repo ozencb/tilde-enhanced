@@ -885,7 +885,7 @@ class Form {
   _handleInput() {
     const newQuery = this._inputEl.value;
     const isHelp = newQuery === '?';
-    const isLaunch = newQuery === '!';
+    const isLaunch = newQuery === 'q!';
     const isInvert = newQuery === 'invert!';
     const isShowKeys = newQuery === 'keys!';
     const { isKey } = this._parseQuery(newQuery);
