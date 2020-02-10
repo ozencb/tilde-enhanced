@@ -80,6 +80,12 @@ This allows you to invoke Tilde with your native browser search bar.
 
 Open up the [script.js](js/script.js) file and read through the `CONFIG`!
 
+## Setting it up for new tabs on Firefox
+
+By default Firefox won't let you set a custom URL for new tabs but there is a work-around to circumvent the problem.
+
+You can follow [Urimu's Guide](https://github.com/Urimu/Startpage#setting-it-up-on-firefox) to set your new tab to launch custom URLs.
+
 ## License
 
 Feel free to [use this and modify it however you like](https://github.com/Ozencb/tilde-enhanced/blob/master/LICENSE).
