@@ -59,7 +59,7 @@ let CONFIG = {
       key: 's',
       url: 'https://stackoverflow.com',
       search: '/search?q={}',
-      color: 'linear-gradient(135deg, #53341C, #F48024)',
+      color: 'linear-gradient(135deg,  #2E8B57, #90EE90)',
       icon: 'stackoverflow',
       quickLaunch: true,
     },
@@ -125,7 +125,7 @@ let CONFIG = {
     {
       category: 'Other',
       name: '4chan',
-      key: 'i',
+      key: '4',
       url: 'https://4chan.org',
       search: '/find?ref_=nv_sr_fn&q={}',
       color: 'linear-gradient(135deg, #7A5F00, #E8B708)',
