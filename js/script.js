@@ -44,6 +44,13 @@ let CONFIG = {
       quickLaunch: true,
     },
     {
+      name: 'Whatsapp',
+      key: 'w',
+      url: 'https://web.whatsapp.com',
+      color: 'linear-gradient(135deg, #075E54, #128C7E)',
+      quickLaunch: true,
+    },
+    {
       category: 'Tech',
       name: 'GitHub',
       key: 'g',
