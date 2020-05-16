@@ -163,11 +163,10 @@ template {
 }
 
 @font-face {
-  font-family: Helvetica;
-  src: local(Helvetica), url(../assets/fonts/Helvetica.ttf);
+  font-family: 'Metropolis';
+  src: local('Metropolis-Bold'), url('../assets/fonts/Metropolis-Bold.otf');
+  font-weight: 700;
   font-style: normal;
-  font-weight: 400;
-  letter-spacing: 0.1em;
 }
 
 * {
@@ -175,7 +174,7 @@ template {
 }
 
 html {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Metropolis", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: var(--base-font-size);
   font-weight: var(--font-weight-normal);
 }
