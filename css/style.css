@@ -158,14 +158,21 @@ template {
 
   /* fonts */
   --base-font-size: 18px;
-  --font-weight-normal: 400;
+  --font-weight-normal: 500;
   --font-weight-bold: 900;
 }
 
 @font-face {
   font-family: 'Metropolis';
-  src: local('Metropolis-Bold'), url('../assets/fonts/Metropolis-Bold.otf');
-  font-weight: 700;
+  src: local('Metropolis-Medium'), url('../assets/fonts/Metropolis-Medium.woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: local('Metropolis-Bold'), url('../assets/fonts/Metropolis-Black.woff2');
+  font-weight: 900;
   font-style: normal;
 }
 
