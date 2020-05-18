@@ -149,6 +149,7 @@ let CONFIG = {
    * - "History" suggestions come from your previously entered queries
    */
   influencers: [
+    { name: 'Commands', limit: 2},
     { name: 'Default', limit: 4 },
     { name: 'History', limit: 1 },
     { name: 'DuckDuckGo', limit: 4 },
@@ -473,6 +474,58 @@ class DefaultInfluencer extends Influencer {
       const suggestions = this._defaultSuggestions[query];
       resolve(suggestions ? suggestions.slice(0, this._limit) : []);
     });
+  }
+}
+
+class CommandsInfluencer extends Influencer {
+  constructor({ commands, queryParser }) {
+    super(...arguments);
+    this._commands = commands;
+  }
+
+  getSuggestions(rawQuery) {
+    const { query } = this._parseQuery(rawQuery);
+    if (!query) return Promise.resolve([]);
+
+    return new Promise(resolve => {
+      const suggestions = [];
+      const commands = this._commands;
+
+      commands.forEach(command => {
+        if(command.key.startsWith(rawQuery)){
+          suggestions.push(command.url);
+        }
+      });
+
+      resolve(suggestions);
+    });
+  }
+
+  _getHostName(url) {
+    let match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+    if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
+    return match[2];
+    }
+    else {
+        return null;
+    }
+}
+
+  _getDomain(url){
+    let hostName = this._getHostName(url);
+    let domain = hostName;
+    
+    if (hostName != null) {
+        let parts = hostName.split('.').reverse();
+        if (parts != null && parts.length > 1) {
+            domain = parts[1] + '.' + parts[0];
+            if (hostName.toLowerCase().indexOf('.co.uk') != -1 && parts.length > 2) {
+              domain = parts[2] + '.' + domain;
+            }
+        }
+    }
+    
+    return domain;
   }
 }
 
@@ -977,12 +1030,14 @@ const queryParser = new QueryParser({
 const influencers = CONFIG.influencers.map(influencerConfig => {
   return new {
     Default: DefaultInfluencer,
+    Commands: CommandsInfluencer,
     DuckDuckGo: DuckDuckGoInfluencer,
     History: HistoryInfluencer,
   }[influencerConfig.name]({
     defaultSuggestions: CONFIG.defaultSuggestions,
     limit: influencerConfig.limit,
     parseQuery: queryParser.parse,
+    commands: CONFIG.commands
   });
 });
 
