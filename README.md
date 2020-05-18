@@ -72,7 +72,7 @@ URL. For example:
 - Entering `keep.google.com` would redirect you to
   [keep.google.com](https://keep.google.com/).
 
-You can also use `Ctrl + Enter' key combination to launch the query with a `.com` TLD.
+You can also use `Ctrl + Enter` key combination to launch the query with a `.com` TLD.
 
 ### Query Paramater
 
