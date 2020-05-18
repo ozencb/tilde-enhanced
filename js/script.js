@@ -250,7 +250,7 @@ const $ = {
       case 9:
         return shift ? 's-tab' : 'tab';
       case 13:
-        return 'enter';
+        return ctrl ? 'c-enter' : 'enter';
       case 16:
         return 'shift';
       case 17:
@@ -839,6 +839,7 @@ class Form {
     this._registerEvents();
     this._loadQueryParam();
     this.invert();
+    this.isCtrlEnter = false;
   }
 
   hide() {
@@ -902,17 +903,19 @@ class Form {
 
   _handleKeydown(e) {
     if ($.isUp(e) || $.isDown(e) || $.isRemove(e)) return;
-
+    
     switch ($.key(e)) {
       case 'alt':
       case 'ctrl':
-      case 'enter':
+      case 'enter':       
       case 'shift':
       case 'super':
         return;
       case 'escape':
         this.hide();
         return;
+      case 'c-enter':
+        this.isCtrlEnter = true;
     }
 
     this.show();
@@ -952,9 +955,10 @@ class Form {
 
   _submitForm(e) {
     if (e) e.preventDefault();
-    const query = this._inputEl.value;
+    let query = this._inputEl.value;
     if (this._suggester) this._suggester.success(query);
     this.hide();
+    if (this.isCtrlEnter) query += '.com';
     this._redirect(this._parseQuery(query).redirect);
   }
 
