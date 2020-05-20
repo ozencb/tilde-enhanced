@@ -493,7 +493,7 @@ class CommandsInfluencer extends Influencer {
       const commands = this._commands;
 
       commands.forEach(command => {
-        if(command.key.startsWith(rawQuery)){
+        if(this._getDomain(command.url).startsWith(rawQuery)){
           suggestions.push(command.url);
         }
       });
@@ -510,7 +510,7 @@ class CommandsInfluencer extends Influencer {
     else {
         return null;
     }
-}
+  }
 
   _getDomain(url){
     let hostName = this._getHostName(url);
