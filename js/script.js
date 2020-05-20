@@ -127,7 +127,6 @@ let CONFIG = {
       name: '4chan',
       key: '4',
       url: 'https://4chan.org',
-      search: '/find?ref_=nv_sr_fn&q={}',
       color: 'linear-gradient(135deg, #2E8B57, #90EE90)',
       icon: '4chan',
       quickLaunch: false,
