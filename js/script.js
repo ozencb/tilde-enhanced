@@ -8,10 +8,10 @@ let CONFIG = {
    */
   commands: [
     {
-      name: 'Duckduckgo',
+      name: 'Startpage',
       key: '*',
-      url: 'https://duckduckgo.com',
-      search: '/?q={}'
+      url: 'https://startpage.com',
+      search: '/do/dsearch?query={}'
     },
     {
       category: 'General',
