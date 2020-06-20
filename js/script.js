@@ -8,10 +8,10 @@ let CONFIG = {
    */
   commands: [
     {
-      name: 'Startpage',
+      name: 'Duckduckgo',
       key: '*',
-      url: 'https://startpage.com',
-      search: '/do/dsearch?query={}'
+      url: 'https://duckduckgo.com',
+      search: '/?q={}'
     },
     {
       category: 'General',
@@ -59,7 +59,7 @@ let CONFIG = {
       key: 's',
       url: 'https://stackoverflow.com',
       search: '/search?q={}',
-      color: 'linear-gradient(135deg,  #53341C, #F48024)',
+      color: 'linear-gradient(135deg, #53341C, #F48024)',
       icon: 'stackoverflow',
       quickLaunch: true,
     },
@@ -143,11 +143,13 @@ let CONFIG = {
    * The order and limit for each suggestion influencer. An "influencer" is
    * just a suggestion source. The following influencers are available:
    *
+   * - "Commands" suggestions come from CONFIG.commands
    * - "Default" suggestions come from CONFIG.defaultSuggestions
    * - "DuckDuckGo" suggestions come from the duck duck go search api
    * - "History" suggestions come from your previously entered queries
    */
   influencers: [
+    { name: 'Commands', limit: 2},
     { name: 'Default', limit: 4 },
     { name: 'History', limit: 1 },
     { name: 'DuckDuckGo', limit: 4 },
@@ -249,7 +251,7 @@ const $ = {
       case 9:
         return shift ? 's-tab' : 'tab';
       case 13:
-        return 'enter';
+        return ctrl ? 'c-enter' : 'enter';
       case 16:
         return 'shift';
       case 17:
@@ -472,6 +474,58 @@ class DefaultInfluencer extends Influencer {
       const suggestions = this._defaultSuggestions[query];
       resolve(suggestions ? suggestions.slice(0, this._limit) : []);
     });
+  }
+}
+
+class CommandsInfluencer extends Influencer {
+  constructor({ commands, queryParser }) {
+    super(...arguments);
+    this._commands = commands;
+  }
+
+  getSuggestions(rawQuery) {
+    const { query } = this._parseQuery(rawQuery);
+    if (!query) return Promise.resolve([]);
+
+    return new Promise(resolve => {
+      const suggestions = [];
+      const commands = this._commands;
+
+      commands.forEach(command => {
+        if(this._getDomain(command.url).startsWith(rawQuery)){
+          suggestions.push(command.url);
+        }
+      });
+
+      resolve(suggestions);
+    });
+  }
+
+  _getHostName(url) {
+    let match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+    if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
+    return match[2];
+    }
+    else {
+        return null;
+    }
+  }
+
+  _getDomain(url){
+    let hostName = this._getHostName(url);
+    let domain = hostName;
+    
+    if (hostName != null) {
+        let parts = hostName.split('.').reverse();
+        if (parts != null && parts.length > 1) {
+            domain = parts[1] + '.' + parts[0];
+            if (hostName.toLowerCase().indexOf('.co.uk') != -1 && parts.length > 2) {
+              domain = parts[2] + '.' + domain;
+            }
+        }
+    }
+    
+    return domain;
   }
 }
 
@@ -838,6 +892,7 @@ class Form {
     this._registerEvents();
     this._loadQueryParam();
     this.invert();
+    this.isCtrlEnter = false;
   }
 
   hide() {
@@ -901,17 +956,19 @@ class Form {
 
   _handleKeydown(e) {
     if ($.isUp(e) || $.isDown(e) || $.isRemove(e)) return;
-
+    
     switch ($.key(e)) {
       case 'alt':
       case 'ctrl':
-      case 'enter':
+      case 'enter':       
       case 'shift':
       case 'super':
         return;
       case 'escape':
         this.hide();
         return;
+      case 'c-enter':
+        this.isCtrlEnter = true;
     }
 
     this.show();
@@ -951,9 +1008,10 @@ class Form {
 
   _submitForm(e) {
     if (e) e.preventDefault();
-    const query = this._inputEl.value;
+    let query = this._inputEl.value;
     if (this._suggester) this._suggester.success(query);
     this.hide();
+    if (this.isCtrlEnter) query += '.com';
     this._redirect(this._parseQuery(query).redirect);
   }
 
@@ -972,12 +1030,14 @@ const queryParser = new QueryParser({
 const influencers = CONFIG.influencers.map(influencerConfig => {
   return new {
     Default: DefaultInfluencer,
+    Commands: CommandsInfluencer,
     DuckDuckGo: DuckDuckGoInfluencer,
     History: HistoryInfluencer,
   }[influencerConfig.name]({
     defaultSuggestions: CONFIG.defaultSuggestions,
     limit: influencerConfig.limit,
     parseQuery: queryParser.parse,
+    commands: CONFIG.commands
   });
 });
 
