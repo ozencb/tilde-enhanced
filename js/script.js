@@ -211,6 +211,11 @@ let CONFIG = {
    * Show a twenty-four-hour clock instead of a twelve-hour clock with AM/PM.
    */
   twentyFourHourClock: true,
+
+  /**
+   * File extension for icon images
+   */
+   iconExtension: 'png'
 };
 
 // Get invertedColors preference from cookies
@@ -386,13 +391,25 @@ class Help {
     const fgcolor = invertValue ? getComputedStyle(document.documentElement).getPropertyValue('--background') 
                                 : getComputedStyle(document.documentElement).getPropertyValue('--foreground');
 
+
     const commandListWithIcons =  this._commands
-      .map(({ category, name, key, url, icon }) => {
+      .map(({ category, name, key, url, icon }, i) => {
+        const iconEl = CONFIG.iconExtension !== 'svg'
+                     ? `<img src='assets/icons/${icon}.png' height = 28px center style="filter: invert(${invertValue});">`
+                     : `<img src='assets/icons/${icon}.svg' onload="SVGInject(this)" height = 28px center style="fill: ${fgcolor};">`
+
         if (category === currentCategory) {
           return `
+            <style>
+              .command-key-${i} {
+                color: ${fgcolor}; 
+                background-color:${bgcolor};
+                border: 4px solid ${fgcolor}; 
+              }   
+            </style>
             <li class="command">
               <a href="${url}" target="${this._newTab ? '_blank' : '_self'}">
-                <span class="command-key"><img src='assets/icons/${icon}.png' height = 36px center style="filter: invert(${invertValue});"></span>
+                <span class="command-key command-key-${i}">${iconEl}</span>
                 <span class="command-name">${name}</span>
               </a>
             </li>
@@ -412,10 +429,9 @@ class Help {
                         color: ${fgcolor}; 
                         background-color:${bgcolor};
                         border: 4px solid ${fgcolor}; 
-                        background-color: ${bgcolor};
                       }   
                     </style>
-                <span class="command-key command-key-${i}" style="">${key}</span>
+                <span class="command-key command-key-${i}">${key}</span>
                 <span class="command-name command-name-${i}">${name}</span>
               </a>
             </li>
