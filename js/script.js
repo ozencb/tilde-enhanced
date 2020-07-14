@@ -128,7 +128,7 @@ let CONFIG = {
       key: '4',
       url: 'https://4chan.org',
       search: '/{}',
-      color: 'linear-gradient(135deg, #7A5F00, #E8B708)',
+      color: 'linear-gradient(90deg, #48af81, #077149',
       icon: '4chan',
       quickLaunch: false,
     },
