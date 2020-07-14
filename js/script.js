@@ -127,7 +127,7 @@ let CONFIG = {
       name: '4chan',
       key: '4',
       url: 'https://4chan.org',
-      search: '/{}',
+      search: '/{}/',
       color: 'linear-gradient(90deg, #48af81, #077149',
       icon: '4chan',
       quickLaunch: false,
@@ -858,7 +858,7 @@ class QueryParser {
       commands
         .filter(c => new URL(c.url).hostname.includes(domain))
         .map(c => c.color)[0] || null
-    );
+    );s
   }
 
   static _prepPath(url, path) {
