@@ -136,7 +136,7 @@ const CONFIG = {
       name: 'Spotify',
       key: 's',
       url: 'https://open.spotify.com/',
-      search: '/search/{}' , 
+      search: '/search/{}',
       color: '#1dd35e',
       icon: 'spotify',
       quickLaunch: false,
@@ -162,6 +162,7 @@ const CONFIG = {
       quickLaunch: false,
     },
 
+    
     {
       category: 'Other',
       name: 'Reddit',
@@ -176,7 +177,7 @@ const CONFIG = {
       category: 'Other',
       name: 'Twitter',
       key: 't',
-      url: 'https://www.instagram.com/',
+      url: 'https://www.twitter.com',
       search: '/search?q={}&src=typed_query',
       color: 'linear-gradient(135deg, #1DA1F2, #19608F)',
       icon: 'twitter',
@@ -186,7 +187,7 @@ const CONFIG = {
       category: 'Other',
       name: 'Instagram',
       key: 'i',
-      url: 'https://twitter.com',
+      url: 'https://www.instagram.com',
       color: 'linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d)',
       icon: 'instagram',
       quickLaunch: true,
