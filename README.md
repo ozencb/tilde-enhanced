@@ -16,9 +16,11 @@ Based on [Cade Scroggins](https://github.com/cadejscroggins)'s [Tilde](https://g
 Most of the features are carried over from the original source.
 Few of the added features are:
 
-- Added a "Quick Launch" functionality, which launches all the sites with `quickLaunch` property set to `true` upon entering `q!`.
-- Color theme can now be inverted easily by either editing config or using `invert!` command.
-- Added an option to show launch keys instead of icons again. Either edit config or type `keys!`. 
+- A launch category functionality, which launches every site in a category. Enter a category index number followed by `!`, i.e. `2!` would launch everything under the second category. 
+- A "Quick Launch" functionality, which launches every site with `quickLaunch` property set to `true` upon entering `q!`.
+- An invertible color theme. Either edit config or use `invert!` command.
+- Show image or SVG as bookmark icon
+- An option to show launch keys instead of icons. Either edit config or type `keys!`.
 
 ## Usage
 

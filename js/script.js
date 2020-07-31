@@ -333,6 +333,7 @@ class Help {
     this._handleKeydown = this._handleKeydown.bind(this);
     this.toggle = this.toggle.bind(this);
     this.launch = this.launch.bind(this);
+    this.launchCategory = this.launchCategory.bind(this);
     this._inputEl = $.el('#search-input');
     this._inputElVal = '';
     this._suggester = options.suggester;
@@ -358,11 +359,26 @@ class Help {
     this.hide();
     this.toggle(true);
     $.bodyClassAdd('help');
-    for (let i = 0; i < CONFIG.commands.length; i++) {
-      if (CONFIG.commands[i].quickLaunch === true) {
-        window.open(CONFIG.commands[i].url);
-      }
-    }
+
+    CONFIG.commands.forEach(command => {
+      if(command.quickLaunch) window.open(command.url);
+    });
+  }
+
+  launchCategory(){
+    
+    const categorySet = new Set();
+
+    CONFIG.commands.forEach(command => {
+      if(command.category) categorySet.add(command.category);
+    });
+
+    const targetCategoryIndex = $.el('#search-input').value.replace('!', '');
+    const targetCategory = Array.from(categorySet)[targetCategoryIndex - 1];
+    
+    CONFIG.commands.forEach(command => {
+      if(targetCategory && command.category === targetCategory) window.open(command.url);
+    });
   }
 
   _buildAndAppendLists() {
@@ -897,6 +913,7 @@ class Form {
     this._suggester = options.suggester;
     this._toggleHelp = options.toggleHelp;
     this._quickLaunch = options.quickLaunch;
+    this._categoryLaunch = options.categoryLaunch;
     this._clearPreview = this._clearPreview.bind(this);
     this._handleInput = this._handleInput.bind(this);
     this._handleKeydown = this._handleKeydown.bind(this);
@@ -953,12 +970,21 @@ class Form {
     this._inputEl.focus();
   }
 
+  _isCategoryLaunch(num){
+    if(/^\d/.test(num[0]) && num[1] === '!'){
+      return true
+    } else {
+      return false;
+    }
+  }
+
   _handleInput() {
     const newQuery = this._inputEl.value;
     const isHelp = newQuery === '?';
     const isLaunch = newQuery === 'q!';
     const isInvert = newQuery === 'invert!';
     const isShowKeys = newQuery === 'keys!';
+    const isCategoryLaunch = this._isCategoryLaunch(newQuery);
     const { isKey } = this._parseQuery(newQuery);
     this._inputElVal = newQuery;
     this._suggester.suggest(newQuery);
@@ -968,8 +994,10 @@ class Form {
     if (isLaunch) this._quickLaunch();
     if (isInvert) this._invertConfig();
     if (isShowKeys) this._showKeysConfig();
+    if (isCategoryLaunch) this._categoryLaunch();
     if (this._instantRedirect && isKey) this._submitWithValue(newQuery);
   }
+
 
   _handleKeydown(e) {
     if ($.isUp(e) || $.isDown(e) || $.isRemove(e)) return;
@@ -1080,6 +1108,7 @@ const form = new Form({
   suggester,
   toggleHelp: help.toggle,
   quickLaunch: help.launch,
+  categoryLaunch: help.launchCategory,
   invertedColors: CONFIG.invertedColors,
   showKeys: CONFIG.showKeys
 });
