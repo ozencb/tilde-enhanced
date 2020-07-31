@@ -87,7 +87,7 @@ This allows you to invoke Tilde with your native browser search bar.
 
 ## Configuration
 
-Open up the [script.js](js/script.js) file and read through the `CONFIG`!
+Open up the [config.js](js/config.js) file and read through the `CONFIG`!
 
 ## Setting it up for new tabs on Firefox
 
