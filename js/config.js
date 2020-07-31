@@ -1,4 +1,4 @@
-let CONFIG = {
+const CONFIG = {
     /**
      * The category, name, key, url, search path, color, icon, and quicklaunch properties for your commands.
      * Icons must be added to "icons" folder and their values/names must be updated.
