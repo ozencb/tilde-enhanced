@@ -207,6 +207,7 @@ const CONFIG = {
       name: 'Translate',
       key: 'tr',
       url: 'https://translate.google.com/',
+      search: '/#view=home&op=translate&sl=auto&tl=en&text={}',
       color: '#1a73e8',
       icon: 'translate',
       quickLaunch: false,
