@@ -185,11 +185,12 @@ const CONFIG = {
     },
     {
       category: 'Other',
-      name: 'Instagram',
-      key: 'i',
-      url: 'https://www.instagram.com',
-      color: 'linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d)',
-      icon: 'instagram',
+      name: '4chan',
+      key: '4',
+      url: 'https://www.4chan.org',
+      search: '/{}/',
+      color: 'linear-gradient(90deg, #48af81, #077149)',
+      icon: '4chan',
       quickLaunch: true,
     },
     {
