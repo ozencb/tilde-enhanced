@@ -1,6 +1,3 @@
-[![GitHub Issues](https://img.shields.io/github/issues/Ozencb/tilde-enhanced)](https://github.com/Ozencb/tilde-enhanced/issues)
-[![Stars](https://img.shields.io/github/stars/Ozencb/tilde-enhanced)](https://github.com/Ozencb/tilde-enhanced)
-[![Forks](https://img.shields.io/github/forks/Ozencb/tilde-enhanced)](https://github.com/Ozencb/tilde-enhanced)
 [![Unlicense](https://img.shields.io/github/license/Ozencb/tilde-enhanced)](../master/LICENSE)
 
 # Tilde Enhanced
