@@ -408,6 +408,15 @@ body.form .search-form {
   visibility: visible;
 }
 
+.disable-select {
+	user-select: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+
 @media (min-width: 500px) {
   .help {
     display: flex;
