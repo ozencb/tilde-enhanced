@@ -195,12 +195,11 @@ const CONFIG = {
     },
     {
       category: 'Other',
-      name: 'LinkedIn',
-      key: 'l',
-      url: 'https://linkedin.com',
-      search: '/search/results/all/?keywords={}',
+      name: 'Discord',
+      key: 'di',
+      url: 'https://discord.com',
       color: 'linear-gradient(135deg, #006CA4, #0077B5)',
-      icon: 'linkedin',
+      icon: 'discord',
       quickLaunch: true,
     },
     {
