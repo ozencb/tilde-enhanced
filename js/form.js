@@ -9,6 +9,7 @@ class Form {
       this._parseQuery = options.parseQuery;
       this._suggester = options.suggester;
       this._toggleHelp = options.toggleHelp;
+      this._toggleSettings = options.toggleSettings;
       this._quickLaunch = options.quickLaunch;
       this._categoryLaunch = options.categoryLaunch;
       this._clearPreview = this._clearPreview.bind(this);
@@ -78,6 +79,7 @@ class Form {
     _handleInput() {
       const newQuery = this._inputEl.value;
       const isHelp = newQuery === '?';
+      const isSettings = newQuery === '-';
       const isLaunch = newQuery === 'q!';
       const isInvert = newQuery === 'invert!';
       const isShowKeys = newQuery === 'keys!';
@@ -87,7 +89,9 @@ class Form {
       this._suggester.suggest(newQuery);
       this._setBackgroundFromQuery(newQuery);
       if (!newQuery || isHelp) this.hide();
+      if (!newQuery || isSettings) this.hide();
       if (isHelp) this._toggleHelp();
+      if (isSettings) this._toggleSettings();
       if (isLaunch) this._quickLaunch();
       if (isInvert) this._invertConfig();
       if (isShowKeys) this._showKeysConfig();

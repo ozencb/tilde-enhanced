@@ -338,6 +338,13 @@ body.suggestions .search-suggestions {
   z-index: 1;
 }
 
+.settings {
+  display: block;
+  padding: 8vw;
+  background: var(--background);
+  z-index: 1;
+}
+
 .category {
   margin-bottom: 3rem;
   padding: 25px;
@@ -404,7 +411,8 @@ body.help .command-name::after {
 }
 
 body.help .help,
-body.form .search-form {
+body.form .search-form,
+body.settings .settings {
   visibility: visible;
 }
 
@@ -422,6 +430,12 @@ body.form .search-form {
     display: flex;
     padding: 0;
   }
+
+  .settings {
+    display: flex;
+    padding: 0;
+  }
+
   .clock {
     font-size: 6rem;
   }
@@ -443,6 +457,11 @@ body.form .search-form {
 
 @media (min-width: 1000px) {
   .help {
+    display: flex;
+    padding: 0;
+  }
+
+  .settings {
     display: flex;
     padding: 0;
   }

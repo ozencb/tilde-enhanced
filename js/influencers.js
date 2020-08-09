@@ -1,46 +1,57 @@
 class Influencer {
-    constructor(options) {
-      this._limit = options.limit;
-      this._parseQuery = options.parseQuery;
-    }
-  
-    addItem() {}
-    getSuggestions() {}
-  
-    _addSearchPrefix(items, query) {
-      const searchPrefix = this._getSearchPrefix(query);
-      return items.map(s => (searchPrefix ? searchPrefix + s : s));
-    }
-  
-    _getSearchPrefix(query) {
-      const { isSearch, key, split } = this._parseQuery(query);
-      return isSearch ? `${key}${split} ` : false;
-    }
+  constructor(options) {
+    this._limit = options.limit;
+    this._parseQuery = options.parseQuery;
   }
 
-  class DefaultInfluencer extends Influencer {
-    constructor({ defaultSuggestions }) {
-      super(...arguments);
-      this._defaultSuggestions = defaultSuggestions;
-    }
-  
-    getSuggestions(query) {
-      return new Promise(resolve => {
-        const suggestions = this._defaultSuggestions[query];
-        resolve(suggestions ? suggestions.slice(0, this._limit) : []);
-      });
-    }
+  addItem() {}
+  getSuggestions() {}
+
+  _addSearchPrefix(items, query) {
+    const searchPrefix = this._getSearchPrefix(query);
+    return items.map(s => (searchPrefix ? searchPrefix + s : s));
   }
 
-  
+  _getSearchPrefix(query) {
+    const {
+      isSearch,
+      key,
+      split
+    } = this._parseQuery(query);
+    return isSearch ? `${key}${split} ` : false;
+  }
+}
+
+class DefaultInfluencer extends Influencer {
+  constructor({
+    defaultSuggestions
+  }) {
+    super(...arguments);
+    this._defaultSuggestions = defaultSuggestions;
+  }
+
+  getSuggestions(query) {
+    return new Promise(resolve => {
+      const suggestions = this._defaultSuggestions[query];
+      resolve(suggestions ? suggestions.slice(0, this._limit) : []);
+    });
+  }
+}
+
+
 class CommandsInfluencer extends Influencer {
-  constructor({ commands, queryParser }) {
+  constructor({
+    commands,
+    queryParser
+  }) {
     super(...arguments);
     this._commands = commands;
   }
 
   getSuggestions(rawQuery) {
-    const { query } = this._parseQuery(rawQuery);
+    const {
+      query
+    } = this._parseQuery(rawQuery);
     if (!query) return Promise.resolve([]);
 
     return new Promise(resolve => {
@@ -48,7 +59,7 @@ class CommandsInfluencer extends Influencer {
       const commands = this._commands;
 
       commands.forEach(command => {
-        if(this._getDomain(command.url).startsWith(rawQuery)){
+        if (this._getDomain(command.url).startsWith(rawQuery)) {
           suggestions.push(command.url);
         }
       });
@@ -60,38 +71,41 @@ class CommandsInfluencer extends Influencer {
   _getHostName(url) {
     let match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
     if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
-    return match[2];
-    }
-    else {
-        return null;
+      return match[2];
+    } else {
+      return null;
     }
   }
 
-  _getDomain(url){
+  _getDomain(url) {
     let hostName = this._getHostName(url);
     let domain = hostName;
-    
+
     if (hostName != null) {
-        let parts = hostName.split('.').reverse();
-        if (parts != null && parts.length > 1) {
-            domain = parts[1] + '.' + parts[0];
-            if (hostName.toLowerCase().indexOf('.co.uk') != -1 && parts.length > 2) {
-              domain = parts[2] + '.' + domain;
-            }
+      let parts = hostName.split('.').reverse();
+      if (parts != null && parts.length > 1) {
+        domain = parts[1] + '.' + parts[0];
+        if (hostName.toLowerCase().indexOf('.co.uk') != -1 && parts.length > 2) {
+          domain = parts[2] + '.' + domain;
         }
+      }
     }
-    
+
     return domain;
   }
 }
 
 class DuckDuckGoInfluencer extends Influencer {
-  constructor({ queryParser }) {
+  constructor({
+    queryParser
+  }) {
     super(...arguments);
   }
 
   getSuggestions(rawQuery) {
-    const { query } = this._parseQuery(rawQuery);
+    const {
+      query
+    } = this._parseQuery(rawQuery);
     if (!query) return Promise.resolve([]);
 
     return new Promise(resolve => {

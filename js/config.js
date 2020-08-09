@@ -162,7 +162,7 @@ const CONFIG = {
       quickLaunch: false,
     },
 
-    
+
     {
       category: 'Other',
       name: 'Reddit',

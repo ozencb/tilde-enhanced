@@ -9,7 +9,6 @@ CONFIG.showKeys = localStorage.getItem('showKeysCookie') ?
   CONFIG.showKeys;
 
 
-
 const queryParser = new QueryParser({
   commands: CONFIG.commands,
   pathDelimiter: CONFIG.pathDelimiter,
@@ -44,6 +43,10 @@ const help = new Help({
   showKeys: CONFIG.showKeys
 });
 
+const settings = new Settings({
+  config: CONFIG
+});
+
 const form = new Form({
   colors: CONFIG.colors,
   instantRedirect: CONFIG.instantRedirect,
@@ -51,6 +54,7 @@ const form = new Form({
   parseQuery: queryParser.parse,
   suggester,
   toggleHelp: help.toggle,
+  toggleSettings: settings.toggle,
   quickLaunch: help.launch,
   categoryLaunch: help.launchCategory,
   invertedColors: CONFIG.invertedColors,
