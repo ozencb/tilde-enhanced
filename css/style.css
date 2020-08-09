@@ -345,6 +345,14 @@ body.suggestions .search-suggestions {
   z-index: 1;
 }
 
+.settings-list {
+  
+}
+
+.settings-list .checkbox input {
+  -webkit-appearance: button;
+}
+
 .category {
   margin-bottom: 3rem;
   padding: 25px;

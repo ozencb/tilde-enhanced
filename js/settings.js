@@ -34,11 +34,37 @@ class Settings {
         return [...new Set(categories)];
     }
 
+    _getSettingElement = (key, value) => {
+        const container = document.createElement('div');
 
+        if(typeof value === 'boolean'){
+            container.classList.add('checkbox');
+            
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = 'name';
+            input.id = value;
+
+            const label = document.createElement('label');
+            label.htmlFor = input.id;
+            label.appendChild(document.createTextNode(`${key} checkbox`));
+
+            container.appendChild(input);
+            container.appendChild(label);
+        } else {
+            return ''
+        }
+        console.log(container);
+        return this._nodeToString(container);
+    };
+
+    _nodeToString = node => {
+        return node.outerHTML || new XMLSerializer().serializeToString(node);
+    };
 
     _buildSettings() {
         const lists = document.createElement('ul');
-        lists.classList.add('settings');
+        lists.classList.add('settings-list');
 
         /*         this._getCategories().forEach(category => {
                     lists.insertAdjacentHTML(
@@ -50,7 +76,7 @@ class Settings {
         for (let k in this._config) {
             lists.insertAdjacentHTML(
                 'beforeend',
-                `<div>${k} ${this._config[k]}</div>`
+                `<div>${this._getSettingElement(k, this._config[k])}</div>`
             );
         }
         this._el.appendChild(lists);
