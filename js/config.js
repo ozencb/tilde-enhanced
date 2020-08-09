@@ -9,8 +9,8 @@ const CONFIG = {
   commands: [{
       name: 'Searx',
       key: '*',
-      url: 'http://www.searx.be',
-      search: '?q={}'
+      url: 'https://searx.fmac.xyz/',
+      search: '?q={}&categories=general&language=en-US'
     },
     {
       category: 'General',
