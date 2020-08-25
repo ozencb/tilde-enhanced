@@ -34,15 +34,6 @@ const CONFIG = {
     },
     {
       category: 'General',
-      name: 'Notion',
-      key: 'ns',
-      url: 'https://www.notion.so',
-      color: 'linear-gradient(135deg, #FFF, #3F3F3F)',
-      icon: 'notion',
-      quickLaunch: true,
-    },
-    {
-      category: 'General',
       name: 'Telegram',
       key: 'tg',
       url: 'https://web.telegram.org',
@@ -57,6 +48,15 @@ const CONFIG = {
       url: 'https://web.whatsapp.com',
       color: 'linear-gradient(135deg, #25D366, #128C7E, #075E54)',
       icon: 'whatsapp',
+      quickLaunch: false,
+    },
+    {
+      category: 'General',
+      name: 'Discord',
+      key: 'dc',
+      url: 'https://discord.com/app',
+      color: '#7289da',
+      icon: 'discord',
       quickLaunch: false,
     },
 
@@ -124,6 +124,16 @@ const CONFIG = {
     },
     {
       category: 'Fun',
+      name: 'Reddit',
+      key: 'r',
+      url: 'https://reddit.com',
+      search: '/search?q={}',
+      color: 'linear-gradient(135deg, #FF8456, #FF4500)',
+      icon: 'reddit',
+      quickLaunch: false,
+    },
+    {
+      category: 'Fun',
       name: 'Netflix',
       key: 'n',
       url: 'https://www.netflix.com',
@@ -151,28 +161,8 @@ const CONFIG = {
       icon: 'twitch',
       quickLaunch: false,
     },
-    {
-      category: 'Fun',
-      name: 'IMDb',
-      key: 'im',
-      url: 'https://imdb.com',
-      search: '/find?ref_=nv_sr_fn&q={}',
-      color: 'linear-gradient(135deg, #7A5F00, #E8B708)',
-      icon: 'imdb',
-      quickLaunch: false,
-    },
 
-    
-    {
-      category: 'Other',
-      name: 'Reddit',
-      key: 'r',
-      url: 'https://reddit.com',
-      search: '/search?q={}',
-      color: 'linear-gradient(135deg, #FF8456, #FF4500)',
-      icon: 'reddit',
-      quickLaunch: false,
-    },
+
     {
       category: 'Other',
       name: 'Twitter',
@@ -200,6 +190,15 @@ const CONFIG = {
       search: '/search/results/all/?keywords={}',
       color: 'linear-gradient(135deg, #006CA4, #0077B5)',
       icon: 'linkedin',
+      quickLaunch: true,
+    },
+    {
+      category: 'Other',
+      name: 'Notion',
+      key: 'ns',
+      url: 'https://www.notion.so',
+      color: 'linear-gradient(135deg, #FFF, #3F3F3F)',
+      icon: 'notion',
       quickLaunch: true,
     },
     {
