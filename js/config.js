@@ -9,7 +9,7 @@ const CONFIG = {
   commands: [{
       name: 'Searx',
       key: '*',
-      url: 'https://searx.fmac.xyz/',
+      url: 'https://zoek.anchel.nl/',
       search: '?q={}&categories=general&language=en-US'
     },
     {
